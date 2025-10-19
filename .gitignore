@@ -12,6 +12,7 @@ dist/
 build/
 .tmp/
 .DS_Store
+config/emailSender.json
 
 # editor / IDE
 .vscode/
@@ -65,3 +66,4 @@ service-account*.json
 # other sensitive files
 *.key
 *.pem
+.env
