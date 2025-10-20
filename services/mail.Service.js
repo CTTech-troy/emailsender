@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 let transporter;
-
+// just check if it works
 /**
  * Initialize and verify SMTP transporter.
  */
@@ -39,3 +39,4 @@ async function sendEmail(mailData) {
 }
 
 module.exports = { initMailer, sendEmail };
+// yeah it works
