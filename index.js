@@ -32,7 +32,9 @@ app.use((err, req, res, next) => {
 
 // start listening
 const PORT = process.env.PORT || 4000;
-const server = app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on http://localhost:${PORT} and accessible on all network interfaces`);
+});
 server.on('error', (err) => {
   console.error('Server error:', err);
   process.exit(1);
