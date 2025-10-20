@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -39,3 +40,22 @@ server.on('error', (err) => {
   console.error('Server error:', err);
   process.exit(1);
 });
+
+// CORS setup: set allowed origin via BACKEND .env CORS_ORIGIN (comma-separated) or use '*' for dev
+const origins = (process.env.CORS_ORIGIN || '*').split(',').map(s => s.trim());
+const corsOptions = {
+  origin: function (origin, callback) {
+    // allow requests with no origin (curl, server-to-server) and allow configured origins or all
+    if (!origin || origins.includes('*') || origins.includes(origin)) return callback(null, true);
+    return callback(new Error('CORS policy: Origin not allowed'));
+  },
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+// allow preflight for all routes
+app.options('*', cors(corsOptions));
+
+// ...existing code: mount routes and start server...
+// app.use('/api/mail', require('./routes/mail.Routes')); etc.
